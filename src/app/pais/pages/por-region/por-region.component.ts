@@ -10,6 +10,7 @@ export class PorRegionComponent {
   public termino:string = '';
   public hayError:boolean = false;
   public paises: Pais[] = [];
+  public placeholder:string = 'Buscar región...';
   constructor(private paisService: PaisService){}
   public buscar(termino:string):void{
     this.hayError = false;

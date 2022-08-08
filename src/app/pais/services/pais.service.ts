@@ -20,4 +20,8 @@ export class PaisService {
     const url:string = DICCIONARIO_METODOS[metodo as keyof typeof DICCIONARIO_METODOS];
     return this.http.get<Pais[]>(url);
   }
+  public getPaisPorCodigo(codigo:string):Observable<Pais>{
+    const url:string = `${this.apiUrl}/alpha/${codigo}`;
+    return this.http.get<Pais>(url);
+  }
 }
