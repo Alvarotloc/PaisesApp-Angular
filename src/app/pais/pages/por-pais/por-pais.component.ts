@@ -11,11 +11,11 @@ export class PorPaisComponent {
   public hayError:boolean = false;
   public paises: Pais[] = [];
   constructor(private paisService: PaisService){}
-  public buscar():void{
+  public buscar(termino:string):void{
     this.hayError = false;
+    this.termino = termino;
     this.paisService.buscarPais(this.termino).subscribe({
       next: (paises) => {
-        console.log(paises);
         this.paises = paises;
       },
       error: (err) => {
