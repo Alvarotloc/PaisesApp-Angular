@@ -5,27 +5,41 @@ import { PaisService } from '../../services/pais.service';
 @Component({
   selector: 'app-por-region',
   templateUrl: './por-region.component.html',
+  styles: [
+    `
+      button {
+        margin-right: 10px;
+      }
+    `,
+  ],
 })
 export class PorRegionComponent {
-  public termino:string = '';
-  public hayError:boolean = false;
+  public regiones: string[] = [
+    'america',
+    'asia',
+    'europe',
+    'africa',
+    'oceania',
+  ];
+  public regionActiva: string = '';
   public paises: Pais[] = [];
-  public placeholder:string = 'Buscar región...';
+  public getClaseCss(region: string) {
+    return region === this.regionActiva
+    ? 'btn btn-primary'
+    : 'btn btn-outline-primary';
+  }
   constructor(private paisService: PaisService){}
-  public buscar(termino:string):void{
-    this.hayError = false;
-    this.termino = termino;
-    this.paisService.buscarPais(termino,'region').subscribe({
+  public activarRegion(region: string) {
+    if(region === this.regionActiva) return;
+    this.regionActiva = region;
+    this.paisService.buscarPais(this.regionActiva,'region').subscribe({
       next: (paises) => {
         this.paises = paises;
       },
       error: (err) => {
-        this.hayError = true;
         this.paises = [];
       }
     });
   }
-  public sugerir(termino:string):void{
-    this.hayError = false;
-  }
+  
 }
